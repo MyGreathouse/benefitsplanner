@@ -67,3 +67,21 @@ h1, h2, h3, .font-display {
   outline-offset: 2px;
   border-radius: 6px;
 }
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #evidence-pack-print,
+  #evidence-pack-print * {
+    visibility: visible;
+  }
+  #evidence-pack-print {
+    position: absolute;
+    inset: 0;
+    padding: 24px;
+  }
+  .print\:hidden {
+    display: none !important;
+  }
+}
