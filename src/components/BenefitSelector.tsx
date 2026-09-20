@@ -5,7 +5,11 @@ import { useRouter } from "next/navigation";
 const OPTIONS: { group: string; items: { label: string; href: string }[] }[] = [
   {
     group: "Get started",
-    items: [{ label: "Benefits Eligibility Checker", href: "/tools/benefits-eligibility-checker" }],
+    items: [
+      { label: "Benefits Eligibility Checker", href: "/tools/benefits-eligibility-checker" },
+      { label: "My Benefits Dashboard", href: "/dashboard" },
+      { label: "Deadline & Review Planner", href: "/tools/deadline-planner" },
+    ],
   },
   {
     group: "Explore a benefit",
@@ -30,6 +34,8 @@ const OPTIONS: { group: string; items: { label: string; href: string }[] }[] = [
       { label: "Universal Credit Planner", href: "/planners/universal-credit" },
       { label: "SEND/EHCP Planner", href: "/planners/send-ehcp" },
       { label: "Carer's Support Planner", href: "/planners/carers-support" },
+      { label: "Council Tax Support Planner", href: "/planners/council-tax-support" },
+      { label: "Challenge Planner", href: "/planners/challenge" },
     ],
   },
 ];

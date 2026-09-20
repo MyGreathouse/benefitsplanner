@@ -18,9 +18,9 @@ const STARTING_POINTS = [
   },
   {
     title: "I already have a claim or decision",
-    body: "Open the relevant planner to prepare your application, organise evidence, or plan a challenge.",
-    cta: "Open My Planner",
-    href: "/planners",
+    body: "Open your dashboard to see planner progress, evidence gathered, and upcoming deadlines across everything at a glance.",
+    cta: "Open My Dashboard",
+    href: "/dashboard",
   },
 ];
 

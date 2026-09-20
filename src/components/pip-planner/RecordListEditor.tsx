@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 
-export type FieldType = "text" | "textarea" | "date" | "select" | "number";
+export type FieldType = "text" | "textarea" | "date" | "select" | "number" | "boolean";
 
 export interface FieldOption {
   value: string;
@@ -121,6 +121,16 @@ export function RecordListEditor({
                   </option>
                 ))}
               </select>
+            ) : f.type === "boolean" ? (
+              <label className="flex items-center gap-2 text-sm text-navy-deep">
+                <input
+                  type="checkbox"
+                  checked={form[f.key] === "true"}
+                  onChange={(e) => setForm((prev) => ({ ...prev, [f.key]: e.target.checked ? "true" : "false" }))}
+                  className="h-4 w-4 accent-navy-deep"
+                />
+                {f.placeholder ?? "Yes"}
+              </label>
             ) : (
               <input
                 type={f.type}
@@ -156,6 +166,13 @@ export function RecordListEditor({
                 const field = fields.find((f) => f.key === key);
                 const value = record[key];
                 if (!value) return null;
+                if (field?.type === "boolean") {
+                  return value === "true" ? (
+                    <p key={key} className="text-success">
+                      ✓ {field.placeholder ?? "Completed"}
+                    </p>
+                  ) : null;
+                }
                 const displayValue =
                   field?.type === "select" ? field.options?.find((o) => o.value === value)?.label ?? value : value;
                 return (

@@ -6,6 +6,7 @@ import { UcPlannerApp } from "@/components/uc-planner/UcPlannerApp";
 import { CarersPlannerApp } from "@/components/carers-planner/CarersPlannerApp";
 import { SendPlannerApp } from "@/components/send-planner/SendPlannerApp";
 import { CtsPlannerApp } from "@/components/cts-planner/CtsPlannerApp";
+import { ChallengePlannerApp } from "@/components/challenge-planner/ChallengePlannerApp";
 
 export function generateStaticParams() {
   return PLANNERS.map((p) => ({ slug: p.slug }));
@@ -38,6 +39,8 @@ export default async function PlannerPage({ params }: { params: Promise<{ slug: 
       return <SendPlannerApp />;
     case "council-tax-support":
       return <CtsPlannerApp />;
+    case "challenge":
+      return <ChallengePlannerApp />;
     default:
       notFound();
   }

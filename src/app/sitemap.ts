@@ -10,6 +10,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE_URL}/benefits`, changeFrequency: "weekly", priority: 0.9 },
     { url: `${BASE_URL}/planners`, changeFrequency: "weekly", priority: 0.8 },
     { url: `${BASE_URL}/tools/benefits-eligibility-checker`, changeFrequency: "weekly", priority: 0.9 },
+    { url: `${BASE_URL}/tools/deadline-planner`, changeFrequency: "weekly", priority: 0.6 },
+    { url: `${BASE_URL}/dashboard`, changeFrequency: "weekly", priority: 0.5 },
   ];
 
   const benefitRoutes: MetadataRoute.Sitemap = BENEFITS.map((b) => ({

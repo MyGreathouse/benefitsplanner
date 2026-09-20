@@ -125,4 +125,20 @@ export const SOURCES = {
     dateChecked: "2026-09-20",
     note: "Independent benefits calculators can give a fuller estimate across local and national schemes than any single page.",
   },
+  mandatoryReconsideration: {
+    title: "Challenge a decision made by the Department for Work and Pensions (DWP)",
+    url: "https://www.gov.uk/mandatory-reconsideration",
+    publisher: "GOV.UK",
+    jurisdiction: "UK",
+    dateChecked: "2026-09-20",
+    note: "You usually have 1 calendar month from the date on the decision letter to ask for a Mandatory Reconsideration; a late request can be considered up to 13 months on, if you can show good reason.",
+  },
+  appealTribunal: {
+    title: "Appeal a benefit decision (SSCS1)",
+    url: "https://www.gov.uk/appeal-benefit-decision",
+    publisher: "GOV.UK / HM Courts & Tribunals Service",
+    jurisdiction: "UK",
+    dateChecked: "2026-09-20",
+    note: "You must have a Mandatory Reconsideration notice before you can appeal. Appeals must normally reach HMCTS within 1 calendar month of the date on the Mandatory Reconsideration notice, with a 13-month absolute limit for late appeals with good reason.",
+  },
 } as const satisfies Record<string, Source>;

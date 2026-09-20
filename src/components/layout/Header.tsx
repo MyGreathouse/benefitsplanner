@@ -5,6 +5,8 @@ const NAV_LINKS = [
   { href: "/benefits", label: "Benefits" },
   { href: "/tools/benefits-eligibility-checker", label: "Eligibility Checker" },
   { href: "/planners", label: "Planners" },
+  { href: "/tools/deadline-planner", label: "Deadlines" },
+  { href: "/dashboard", label: "Dashboard" },
 ];
 
 export function Header() {
