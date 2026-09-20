@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Container } from "@/components/ui/Container";
 import { PLANNERS, getPlannerBySlug } from "@/lib/planner-data";
 import { PlannerShell } from "@/components/planner/PlannerShell";
 
@@ -24,9 +23,5 @@ export default async function PlannerPage({ params }: { params: Promise<{ slug: 
   const planner = getPlannerBySlug(slug);
   if (!planner) notFound();
 
-  return (
-    <Container className="py-16">
-      <PlannerShell config={planner} />
-    </Container>
-  );
+  return <PlannerShell config={planner} />;
 }

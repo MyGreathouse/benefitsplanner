@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/ui/Container";
+import { PageHero } from "@/components/ui/PageHero";
 import { EligibilityChecker } from "@/components/checker/EligibilityChecker";
 
 export const metadata: Metadata = {
@@ -10,20 +11,17 @@ export const metadata: Metadata = {
 
 export default function EligibilityCheckerPage() {
   return (
-    <Container className="py-16">
-      <div className="mx-auto max-w-2xl">
-        <h1 className="font-display text-3xl font-semibold text-navy-deep sm:text-4xl">
-          Benefits Eligibility Checker
-        </h1>
-        <p className="mt-4 text-slate">
-          Answer a few questions about your circumstances. We&rsquo;ll show you which pathways may
-          be worth exploring — this isn&rsquo;t an official decision, and your answers stay on
-          this device.
-        </p>
-        <div className="mt-10">
+    <div>
+      <PageHero
+        eyebrow="Tool"
+        title="Benefits Eligibility Checker"
+        standfirst="Answer a few questions about your circumstances. We'll show you which pathways may be worth exploring — this isn't an official decision, and your answers stay on this device."
+      />
+      <Container className="py-12">
+        <div className="mx-auto max-w-2xl">
           <EligibilityChecker />
         </div>
-      </div>
-    </Container>
+      </Container>
+    </div>
   );
 }

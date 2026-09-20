@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Container } from "@/components/ui/Container";
-import { Card } from "@/components/ui/Card";
+import { PageHero } from "@/components/ui/PageHero";
 import { LinkButton } from "@/components/ui/Button";
 import { Disclaimer } from "@/components/ui/Disclaimer";
 import { SourceCard } from "@/components/ui/SourceCard";
@@ -31,63 +31,71 @@ export default async function BenefitPage({ params }: { params: Promise<{ slug: 
   if (!benefit) notFound();
 
   return (
-    <Container className="py-16">
-      <div className="max-w-3xl">
-        <h1 className="font-display text-3xl font-semibold text-navy-deep sm:text-4xl">
-          {benefit.name}
-        </h1>
-        <p className="mt-4 text-lg text-slate">{benefit.standfirst}</p>
-        {benefit.jurisdictionNote && (
-          <p className="mt-3 text-sm text-slate">
-            <strong className="text-navy-deep">Note: </strong>
-            {benefit.jurisdictionNote}
-          </p>
-        )}
-
+    <div>
+      <PageHero eyebrow="Benefit" title={benefit.name} standfirst={benefit.standfirst}>
         <div className="mt-6 flex flex-wrap gap-3">
-          <LinkButton href="/tools/benefits-eligibility-checker" variant="secondary">
+          <LinkButton
+            href="/tools/benefits-eligibility-checker"
+            variant="secondary"
+            className="!border-white/30 !bg-transparent !text-white hover:!border-white"
+          >
             Check My Eligibility
           </LinkButton>
           {benefit.plannerSlug && (
-            <LinkButton href={`/planners/${benefit.plannerSlug}`}>
+            <LinkButton href={`/planners/${benefit.plannerSlug}`} className="!bg-gold !text-navy-deep hover:!bg-white">
               Start {benefit.plannerLabel}
             </LinkButton>
           )}
         </div>
-      </div>
+      </PageHero>
 
-      <div className="mt-12 max-w-3xl space-y-10">
-        {benefit.sections.map((section) => (
-          <div key={section.heading}>
-            <h2 className="font-display text-xl font-semibold text-navy-deep">{section.heading}</h2>
-            {section.body.map((p, i) => (
-              <p key={i} className="mt-3 text-sm leading-relaxed text-slate">
-                {p}
-              </p>
-            ))}
-            {section.bullets && (
-              <ul className="mt-3 list-disc space-y-1.5 pl-5 text-sm leading-relaxed text-slate">
-                {section.bullets.map((b, i) => (
-                  <li key={i}>{b}</li>
+      <Container className="py-12">
+        <div className="max-w-3xl">
+          {benefit.jurisdictionNote && (
+            <p className="rounded-xl border border-border bg-off-white p-4 text-sm text-slate">
+              <strong className="text-navy-deep">Note: </strong>
+              {benefit.jurisdictionNote}
+            </p>
+          )}
+
+          <div className="mt-10 space-y-10">
+            {benefit.sections.map((section) => (
+              <div key={section.heading}>
+                <h2 className="border-l-4 border-gold pl-3 font-display text-xl font-semibold text-navy-deep">
+                  {section.heading}
+                </h2>
+                {section.body.map((p, i) => (
+                  <p key={i} className="mt-3 text-sm leading-relaxed text-slate">
+                    {p}
+                  </p>
                 ))}
-              </ul>
-            )}
+                {section.bullets && (
+                  <ul className="mt-3 list-disc space-y-1.5 pl-5 text-sm leading-relaxed text-slate">
+                    {section.bullets.map((b, i) => (
+                      <li key={i}>{b}</li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
 
-      <div className="mt-12 max-w-3xl">
-        <Disclaimer />
-      </div>
+          <div className="mt-12">
+            <Disclaimer />
+          </div>
 
-      <div className="mt-10 max-w-3xl">
-        <h2 className="font-display text-lg font-semibold text-navy-deep">Official sources</h2>
-        <div className="mt-4 grid gap-3 sm:grid-cols-2">
-          {benefit.sources.map((source) => (
-            <SourceCard key={source.url} source={source} />
-          ))}
+          <div className="mt-10">
+            <h2 className="border-l-4 border-gold pl-3 font-display text-lg font-semibold text-navy-deep">
+              Official sources
+            </h2>
+            <div className="mt-4 grid gap-3 sm:grid-cols-2">
+              {benefit.sources.map((source) => (
+                <SourceCard key={source.url} source={source} />
+              ))}
+            </div>
+          </div>
         </div>
-      </div>
-    </Container>
+      </Container>
+    </div>
   );
 }

@@ -4,9 +4,11 @@ import { useEffect, useMemo, useState } from "react";
 import type { PlannerConfig, PlannerProgress } from "@/lib/planner/types";
 import { loadPlannerProgress, savePlannerProgress } from "@/lib/persistence";
 import { Card } from "@/components/ui/Card";
-import { ProgressBar } from "@/components/ui/ProgressBar";
+import { Container } from "@/components/ui/Container";
+import { PageHero } from "@/components/ui/PageHero";
 import { Disclaimer } from "@/components/ui/Disclaimer";
 import { SourceCard } from "@/components/ui/SourceCard";
+import { ReadinessGauge } from "./ReadinessGauge";
 
 export function PlannerShell({ config }: { config: PlannerConfig }) {
   const [progress, setProgress] = useState<PlannerProgress | null>(null);
@@ -42,83 +44,84 @@ export function PlannerShell({ config }: { config: PlannerConfig }) {
 
   return (
     <div>
-      <div className="max-w-3xl">
-        <h1 className="font-display text-3xl font-semibold text-navy-deep sm:text-4xl">{config.title}</h1>
-        <p className="mt-4 text-lg text-slate">{config.standfirst}</p>
-      </div>
-
-      <div className="mt-8 max-w-3xl">
-        <div className="flex flex-wrap gap-2">
+      <PageHero eyebrow="Planner" title={config.title} standfirst={config.standfirst}>
+        <div className="mt-6 flex flex-wrap gap-2">
           {config.journeyStages.map((stage) => (
             <span
               key={stage}
-              className="rounded-full border border-border bg-off-white px-3 py-1 text-xs font-medium text-slate"
+              className="rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-medium text-white/85"
             >
               {stage}
             </span>
           ))}
         </div>
-      </div>
+      </PageHero>
 
-      {allTaskIds.length > 0 && (
-        <Card className="mt-8 max-w-3xl">
-          <ProgressBar percent={percentComplete} label="Your progress" />
-        </Card>
-      )}
+      <Container className="py-12">
+        {allTaskIds.length > 0 && (
+          <div className="max-w-3xl">
+            <ReadinessGauge percent={percentComplete} />
+          </div>
+        )}
 
-      <div className="mt-10 max-w-3xl space-y-8">
-        {config.sections.map((section) => (
-          <Card key={section.id}>
-            <h2 className="font-display text-lg font-semibold text-navy-deep">{section.title}</h2>
-            {section.summary && <p className="mt-2 text-sm leading-relaxed text-slate">{section.summary}</p>}
+        <div className="mt-10 max-w-3xl space-y-8">
+          {config.sections.map((section) => (
+            <Card key={section.id}>
+              <h2 className="border-l-4 border-gold pl-3 font-display text-lg font-semibold text-navy-deep">
+                {section.title}
+              </h2>
+              {section.summary && <p className="mt-2 text-sm leading-relaxed text-slate">{section.summary}</p>}
 
-            {section.bullets && (
-              <ul className="mt-3 list-disc space-y-1.5 pl-5 text-sm leading-relaxed text-slate">
-                {section.bullets.map((b, i) => (
-                  <li key={i}>{b}</li>
-                ))}
-              </ul>
-            )}
+              {section.bullets && (
+                <ul className="mt-3 list-disc space-y-1.5 pl-5 text-sm leading-relaxed text-slate">
+                  {section.bullets.map((b, i) => (
+                    <li key={i}>{b}</li>
+                  ))}
+                </ul>
+              )}
 
-            {section.tasks && (
-              <ul className="mt-3 space-y-2">
-                {section.tasks.map((task) => {
-                  const checked = progress?.completedTaskIds.includes(task.id) ?? false;
-                  return (
-                    <li key={task.id}>
-                      <label className="focus-ring flex cursor-pointer items-start gap-3 rounded-lg p-2 hover:bg-off-white">
-                        <input
-                          type="checkbox"
-                          checked={checked}
-                          onChange={() => toggleTask(task.id)}
-                          className="mt-0.5 h-4 w-4 shrink-0 accent-navy-deep"
-                        />
-                        <span className={`text-sm ${checked ? "text-slate line-through" : "text-navy-deep"}`}>
-                          {task.label}
-                          {task.detail && <span className="block text-xs text-slate">{task.detail}</span>}
-                        </span>
-                      </label>
-                    </li>
-                  );
-                })}
-              </ul>
-            )}
-          </Card>
-        ))}
-      </div>
-
-      <div className="mt-10 max-w-3xl">
-        <Disclaimer text={config.disclaimer} />
-      </div>
-
-      <div className="mt-10 max-w-3xl">
-        <h2 className="font-display text-lg font-semibold text-navy-deep">Official sources</h2>
-        <div className="mt-4 grid gap-3 sm:grid-cols-2">
-          {config.sources.map((source) => (
-            <SourceCard key={source.url} source={source} />
+              {section.tasks && (
+                <ul className="mt-3 space-y-2">
+                  {section.tasks.map((task) => {
+                    const checked = progress?.completedTaskIds.includes(task.id) ?? false;
+                    return (
+                      <li key={task.id}>
+                        <label className="focus-ring flex cursor-pointer items-start gap-3 rounded-lg p-2 hover:bg-off-white">
+                          <input
+                            type="checkbox"
+                            checked={checked}
+                            onChange={() => toggleTask(task.id)}
+                            className="mt-0.5 h-4 w-4 shrink-0 accent-navy-deep"
+                          />
+                          <span className={`text-sm ${checked ? "text-slate line-through" : "text-navy-deep"}`}>
+                            {task.label}
+                            {task.detail && <span className="block text-xs text-slate">{task.detail}</span>}
+                          </span>
+                        </label>
+                      </li>
+                    );
+                  })}
+                </ul>
+              )}
+            </Card>
           ))}
         </div>
-      </div>
+
+        <div className="mt-10 max-w-3xl">
+          <Disclaimer text={config.disclaimer} />
+        </div>
+
+        <div className="mt-10 max-w-3xl">
+          <h2 className="border-l-4 border-gold pl-3 font-display text-lg font-semibold text-navy-deep">
+            Official sources
+          </h2>
+          <div className="mt-4 grid gap-3 sm:grid-cols-2">
+            {config.sources.map((source) => (
+              <SourceCard key={source.url} source={source} />
+            ))}
+          </div>
+        </div>
+      </Container>
     </div>
   );
 }
