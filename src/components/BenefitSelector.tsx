@@ -14,6 +14,13 @@ const OPTIONS: { group: string; items: { label: string; href: string }[] }[] = [
       { label: "PIP", href: "/benefits/pip" },
       { label: "Carer's Allowance & Support", href: "/benefits/carers-allowance" },
       { label: "Council Tax Reduction & Support", href: "/benefits/council-tax-support" },
+      { label: "Child Benefit", href: "/benefits/child-benefit" },
+      { label: "Attendance Allowance", href: "/benefits/attendance-allowance" },
+      { label: "Pension Credit", href: "/benefits/pension-credit" },
+      { label: "ESA", href: "/benefits/esa" },
+      { label: "DLA", href: "/benefits/dla" },
+      { label: "Housing Support", href: "/benefits/housing-support" },
+      { label: "Other Support", href: "/benefits/other-support" },
     ],
   },
   {

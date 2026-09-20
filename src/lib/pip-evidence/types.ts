@@ -71,24 +71,6 @@ export interface TimelineEvent {
   type: "applied" | "assessment" | "decision" | "mr-deadline" | "appeal-deadline" | "other";
 }
 
-export interface EvidenceFileMeta {
-  id: string;
-  fileName: string;
-  mimeType: string;
-  sizeBytes: number;
-  note?: string;
-  relatedActivityId?: string;
-  dateAdded: string;
-}
-
-export interface VoiceNoteMeta {
-  id: string;
-  label: string;
-  mimeType: string;
-  durationSeconds?: number;
-  dateAdded: string;
-}
-
 export interface PipSettings {
   reminderDate?: string;
   reminderNote?: string;

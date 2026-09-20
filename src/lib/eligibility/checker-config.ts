@@ -191,6 +191,11 @@ export const checkerConfig: EligibilityConfig = {
             { value: "pip", label: "PIP" },
             { value: "carers-allowance", label: "Carer's Allowance" },
             { value: "council-tax-support", label: "Council Tax Reduction / Support" },
+            { value: "child-benefit", label: "Child Benefit" },
+            { value: "attendance-allowance", label: "Attendance Allowance" },
+            { value: "pension-credit", label: "Pension Credit" },
+            { value: "esa", label: "ESA" },
+            { value: "dla", label: "DLA" },
             { value: "none", label: "None of these" },
           ],
         },
@@ -351,6 +356,135 @@ function buildRules(): EligibilityRule[] {
           missingInfo: ["Which local authority you live in", "Your council's specific Council Tax Reduction scheme rules"],
           caveats: [
             "Council Tax Reduction is run locally — the exact rules, and whether you qualify, depend entirely on your council's own scheme.",
+          ],
+        };
+      },
+    },
+    {
+      id: "child-benefit-worth-exploring",
+      benefitSlug: "child-benefit",
+      description: "Has dependent children living with them",
+      evaluate: (a) => {
+        const alreadyClaims = Array.isArray(a["current-benefits"]) && (a["current-benefits"] as string[]).includes("child-benefit");
+        if (alreadyClaims) return null;
+
+        if (bool(a, "has-children") !== true) return null;
+
+        return {
+          benefitSlug: "child-benefit",
+          strength: "worth-exploring",
+          reasons: ["You've told us you have dependent children living with you"],
+          missingInfo: ["Your (and your partner's) individual adjusted net income, to check the High Income Child Benefit Charge"],
+          caveats: [
+            "Child Benefit itself isn't means-tested, but a tax charge can claw some or all of it back if you or your partner earn over £60,000 — many households still find it worth claiming regardless.",
+          ],
+        };
+      },
+    },
+    {
+      id: "attendance-allowance-worth-exploring",
+      benefitSlug: "attendance-allowance",
+      description: "Over State Pension age with a health condition or disability affecting daily living",
+      evaluate: (a) => {
+        const alreadyClaims = Array.isArray(a["current-benefits"]) && (a["current-benefits"] as string[]).includes("attendance-allowance");
+        if (alreadyClaims) return null;
+
+        const age = num(a, "age");
+        const reachedPensionAge = bool(a, "reached-state-pension-age");
+        const overPensionAge = reachedPensionAge === true || (age !== undefined && age >= APPROX_STATE_PENSION_AGE);
+        if (!overPensionAge) return null;
+
+        if (bool(a, "has-health-condition") !== true) return null;
+
+        return {
+          benefitSlug: "attendance-allowance",
+          strength: "worth-exploring",
+          reasons: ["You're over State Pension age and have told us you have a condition affecting daily living"],
+          missingInfo: ["Whether you need help or supervision during the day, at night, or both"],
+          caveats: [
+            "Attendance Allowance isn't means-tested — it's based on the level of care or supervision you need, not your income or savings.",
+          ],
+        };
+      },
+    },
+    {
+      id: "pension-credit-worth-exploring",
+      benefitSlug: "pension-credit",
+      description: "Over State Pension age on a potentially low income",
+      evaluate: (a) => {
+        const alreadyClaims = Array.isArray(a["current-benefits"]) && (a["current-benefits"] as string[]).includes("pension-credit");
+        if (alreadyClaims) return null;
+
+        const age = num(a, "age");
+        const reachedPensionAge = bool(a, "reached-state-pension-age");
+        const overPensionAge = reachedPensionAge === true || (age !== undefined && age >= APPROX_STATE_PENSION_AGE);
+        if (!overPensionAge) return null;
+
+        const employment = str(a, "employment-status");
+        const savings = num(a, "savings");
+
+        // Only surface this where there's some signal of lower income — retired/unemployed, or savings not obviously high.
+        const lowIncomeSignal = employment === "retired" || employment === "unemployed" || (savings !== undefined && savings < 16000);
+        if (!lowIncomeSignal) return null;
+
+        return {
+          benefitSlug: "pension-credit",
+          strength: "possibly-relevant",
+          reasons: ["You're over State Pension age, and your circumstances don't rule out a low income"],
+          missingInfo: ["Your exact weekly income from all sources, including any pensions"],
+          caveats: [
+            "Many eligible pensioners assume savings or a partner's income rules them out — it's usually worth checking properly rather than assuming.",
+          ],
+        };
+      },
+    },
+    {
+      id: "esa-worth-exploring",
+      benefitSlug: "esa",
+      description: "Unable to work due to health, under State Pension age",
+      evaluate: (a) => {
+        const alreadyClaims = Array.isArray(a["current-benefits"]) && (a["current-benefits"] as string[]).includes("esa");
+        if (alreadyClaims) return null;
+
+        const employment = str(a, "employment-status");
+        if (employment !== "unable-to-work") return null;
+
+        const age = num(a, "age");
+        const reachedPensionAge = bool(a, "reached-state-pension-age");
+        if (reachedPensionAge === true || (age !== undefined && age >= APPROX_STATE_PENSION_AGE)) return null;
+
+        return {
+          benefitSlug: "esa",
+          strength: "possibly-relevant",
+          reasons: ["You've told us you're unable to work due to health, and are under State Pension age"],
+          missingInfo: ["Your National Insurance contribution record for the last 2–3 tax years, which New Style ESA depends on"],
+          caveats: [
+            "New Style ESA depends on your own National Insurance contributions rather than household income — this can't be checked from the answers here.",
+          ],
+        };
+      },
+    },
+    {
+      id: "dla-worth-exploring",
+      benefitSlug: "dla",
+      description: "Checking for a child under 16 with a health condition or disability",
+      evaluate: (a) => {
+        const alreadyClaims = Array.isArray(a["current-benefits"]) && (a["current-benefits"] as string[]).includes("dla");
+        if (alreadyClaims) return null;
+
+        if (str(a, "checking-for") !== "child") return null;
+        if (bool(a, "has-health-condition") !== true) return null;
+
+        const age = num(a, "age");
+        if (age !== undefined && age >= 16) return null;
+
+        return {
+          benefitSlug: "dla",
+          strength: "worth-exploring",
+          reasons: ["You're checking for a child with a health condition or disability"],
+          missingInfo: ["Whether the child needs substantially more care or supervision than other children their age"],
+          caveats: [
+            "DLA for children is separate from adult disability benefits — for a child turning 16, a PIP claim generally needs to start instead.",
           ],
         };
       },

@@ -3,22 +3,24 @@
 import { useRef } from "react";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
-import type { PipEvidenceData, PipSettings } from "@/lib/pip-evidence/types";
-import { clearAllEvidenceFilesAndVoiceNotes } from "@/lib/pip-evidence/storage";
 
-export function SettingsSection({
+export function SettingsSection<T>({
+  plannerLabel,
   data,
-  settings,
-  onSettingsChange,
+  reminderDate,
+  reminderNote,
+  onReminderChange,
   onImport,
   onClearAll,
   evidenceFileCount,
   voiceNoteCount,
 }: {
-  data: PipEvidenceData;
-  settings: PipSettings;
-  onSettingsChange: (settings: PipSettings) => void;
-  onImport: (data: PipEvidenceData) => void;
+  plannerLabel: string;
+  data: T;
+  reminderDate?: string;
+  reminderNote?: string;
+  onReminderChange: (reminderDate: string | undefined, reminderNote: string | undefined) => void;
+  onImport: (data: T) => void;
   onClearAll: () => void;
   evidenceFileCount: number;
   voiceNoteCount: number;
@@ -35,7 +37,7 @@ export function SettingsSection({
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = `pip-planner-backup-${new Date().toISOString().slice(0, 10)}.json`;
+    a.download = `${plannerLabel.toLowerCase().replace(/\s+/g, "-")}-backup-${new Date().toISOString().slice(0, 10)}.json`;
     a.click();
     URL.revokeObjectURL(url);
   }
@@ -47,7 +49,7 @@ export function SettingsSection({
     reader.onload = () => {
       try {
         const parsed = JSON.parse(String(reader.result));
-        const imported: PipEvidenceData = parsed.data ?? parsed;
+        const imported: T = parsed.data ?? parsed;
         onImport(imported);
       } catch {
         window.alert("That file doesn't look like a valid backup.");
@@ -57,12 +59,11 @@ export function SettingsSection({
     if (importInputRef.current) importInputRef.current.value = "";
   }
 
-  async function handleClearAll() {
+  function handleClearAll() {
     const confirmed = window.confirm(
-      "This permanently deletes all your PIP planner data on this device — profile, trackers, evidence files, and voice notes. This can't be undone. Continue?",
+      `This permanently deletes all your ${plannerLabel} data on this device — profile, trackers, evidence files, and voice notes. This can't be undone. Continue?`,
     );
     if (!confirmed) return;
-    await clearAllEvidenceFilesAndVoiceNotes();
     onClearAll();
   }
 
@@ -103,14 +104,14 @@ export function SettingsSection({
         <div className="mt-3 grid gap-3 sm:grid-cols-2">
           <input
             type="date"
-            value={settings.reminderDate ?? ""}
-            onChange={(e) => onSettingsChange({ ...settings, reminderDate: e.target.value })}
+            value={reminderDate ?? ""}
+            onChange={(e) => onReminderChange(e.target.value || undefined, reminderNote)}
             className="focus-ring rounded-lg border border-border bg-white px-3 py-2 text-sm text-navy-deep"
           />
           <input
             type="text"
-            value={settings.reminderNote ?? ""}
-            onChange={(e) => onSettingsChange({ ...settings, reminderNote: e.target.value })}
+            value={reminderNote ?? ""}
+            onChange={(e) => onReminderChange(reminderDate, e.target.value || undefined)}
             placeholder="e.g. Assessment call at 10am"
             className="focus-ring rounded-lg border border-border bg-white px-3 py-2 text-sm text-navy-deep sm:col-span-1"
           />
@@ -123,7 +124,7 @@ export function SettingsSection({
           Permanently erases everything in this planner from this device. This cannot be undone.
         </p>
         <Button size="md" variant="secondary" className="mt-3 !border-error !text-error" onClick={handleClearAll}>
-          Delete all PIP planner data
+          Delete all {plannerLabel} data
         </Button>
       </div>
     </Card>

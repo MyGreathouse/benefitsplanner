@@ -3,10 +3,16 @@
 import { useEffect, useRef, useState } from "react";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
-import type { VoiceNoteMeta } from "@/lib/pip-evidence/types";
-import { addVoiceNote, deleteVoiceNote, getVoiceNoteBlob, listVoiceNotes } from "@/lib/pip-evidence/storage";
+import type { VoiceNoteMeta } from "@/lib/planner-evidence/types";
+import { addVoiceNote, deleteVoiceNote, getVoiceNoteBlob, listVoiceNotes } from "@/lib/planner-evidence/storage";
 
-export function VoiceNotesSection({ onCountChange }: { onCountChange?: (count: number) => void }) {
+export function VoiceNotesSection({
+  plannerSlug,
+  onCountChange,
+}: {
+  plannerSlug: string;
+  onCountChange?: (count: number) => void;
+}) {
   const [notes, setNotes] = useState<VoiceNoteMeta[]>([]);
   const [label, setLabel] = useState("");
   const [recording, setRecording] = useState(false);
@@ -19,7 +25,7 @@ export function VoiceNotesSection({ onCountChange }: { onCountChange?: (count: n
   const startTimeRef = useRef<number>(0);
 
   async function refresh() {
-    const list = await listVoiceNotes();
+    const list = await listVoiceNotes(plannerSlug);
     setNotes(list);
     onCountChange?.(list.length);
   }
@@ -29,7 +35,7 @@ export function VoiceNotesSection({ onCountChange }: { onCountChange?: (count: n
     setSupported(typeof window !== "undefined" && !!navigator.mediaDevices && typeof MediaRecorder !== "undefined");
     refresh().finally(() => setLoading(false));
     // eslint-disable-next-line react-hooks/exhaustive-deps -- refresh is stable for this component's lifetime
-  }, []);
+  }, [plannerSlug]);
 
   async function startRecording() {
     setError(null);
@@ -45,6 +51,7 @@ export function VoiceNotesSection({ onCountChange }: { onCountChange?: (count: n
         const durationSeconds = Math.round((Date.now() - startTimeRef.current) / 1000);
         const meta: VoiceNoteMeta = {
           id: crypto.randomUUID(),
+          plannerSlug,
           label: label.trim() || `Voice note — ${new Date().toLocaleString()}`,
           mimeType: blob.type,
           durationSeconds,
@@ -87,8 +94,8 @@ export function VoiceNotesSection({ onCountChange }: { onCountChange?: (count: n
     <Card>
       <h2 className="border-l-4 border-gold pl-3 font-display text-lg font-semibold text-navy-deep">Voice notes</h2>
       <p className="mt-2 text-sm leading-relaxed text-slate">
-        Sometimes it&rsquo;s easier to talk through a bad day than write it down. Recordings stay on
-        this device only.
+        Sometimes it&rsquo;s easier to talk through something than write it down. Recordings stay
+        on this device only.
       </p>
 
       {!supported && (

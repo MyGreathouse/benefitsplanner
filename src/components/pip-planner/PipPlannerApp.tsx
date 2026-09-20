@@ -23,8 +23,11 @@ import { EvidenceVaultSection } from "./EvidenceVaultSection";
 import { VoiceNotesSection } from "./VoiceNotesSection";
 import { SettingsSection } from "./SettingsSection";
 import { EvidencePackSection } from "./EvidencePackSection";
-import { listEvidenceFiles, listVoiceNotes } from "@/lib/pip-evidence/storage";
-import type { EvidenceFileMeta } from "@/lib/pip-evidence/types";
+import { listEvidenceFiles, listVoiceNotes, clearPlannerEvidenceAndVoice } from "@/lib/planner-evidence/storage";
+import type { EvidenceFileMeta } from "@/lib/planner-evidence/types";
+import { buildPipEvidencePackSections } from "@/lib/pip-evidence/evidence-pack";
+
+const SLUG = "pip";
 
 const TABS = [
   "Overview",
@@ -58,12 +61,12 @@ export function PipPlannerApp() {
     setData(loadPipData());
     // eslint-disable-next-line react-hooks/set-state-in-effect -- see above
     setChecklistProgress(loadPlannerProgress("pip"));
-    listEvidenceFiles().then(setEvidenceFiles);
-    listVoiceNotes().then((notes) => setVoiceNoteCount(notes.length));
+    listEvidenceFiles(SLUG).then(setEvidenceFiles);
+    listVoiceNotes(SLUG).then((notes) => setVoiceNoteCount(notes.length));
   }, []);
 
   function refreshVoiceNoteCount() {
-    listVoiceNotes().then((notes) => setVoiceNoteCount(notes.length));
+    listVoiceNotes(SLUG).then((notes) => setVoiceNoteCount(notes.length));
   }
 
   function updateData(patch: Partial<PipEvidenceData>) {
@@ -100,7 +103,7 @@ export function PipPlannerApp() {
   }, [data, checklistPercent, evidenceFiles.length]);
 
   async function refreshEvidenceFiles() {
-    setEvidenceFiles(await listEvidenceFiles());
+    setEvidenceFiles(await listEvidenceFiles(SLUG));
   }
 
   if (!data || !checklistProgress) {
@@ -294,7 +297,14 @@ export function PipPlannerApp() {
             />
           )}
 
-          {activeTab === "Evidence vault" && <EvidenceVaultSection onCountChange={() => refreshEvidenceFiles()} />}
+          {activeTab === "Evidence vault" && (
+            <EvidenceVaultSection
+              plannerSlug={SLUG}
+              tagOptions={activityOptions}
+              tagLabel="Relates to which activity? (optional)"
+              onCountChange={() => refreshEvidenceFiles()}
+            />
+          )}
 
           {activeTab === "Real-life examples" && (
             <RecordListEditor
@@ -378,23 +388,34 @@ export function PipPlannerApp() {
             </Card>
           )}
 
-          {activeTab === "Voice notes" && <VoiceNotesSection onCountChange={setVoiceNoteCount} />}
+          {activeTab === "Voice notes" && <VoiceNotesSection plannerSlug={SLUG} onCountChange={setVoiceNoteCount} />}
 
-          {activeTab === "Evidence pack" && <EvidencePackSection data={data} evidenceFiles={evidenceFiles} />}
+          {activeTab === "Evidence pack" && (
+            <EvidencePackSection
+              plannerLabel="PIP Planner"
+              sections={buildPipEvidencePackSections(data)}
+              evidenceFiles={evidenceFiles}
+              rawData={data}
+            />
+          )}
 
           {activeTab === "Settings" && (
             <SettingsSection
+              plannerLabel="PIP Planner"
               data={data}
-              settings={data.settings}
-              onSettingsChange={(settings) => updateData({ settings })}
+              reminderDate={data.settings.reminderDate}
+              reminderNote={data.settings.reminderNote}
+              onReminderChange={(reminderDate, reminderNote) =>
+                updateData({ settings: { ...data.settings, reminderDate, reminderNote } })
+              }
               onImport={(imported) => {
                 setData(imported);
                 savePipData(imported);
               }}
-              onClearAll={() => {
+              onClearAll={async () => {
                 clearPipData();
-                const cleared = loadPipData();
-                setData(cleared);
+                await clearPlannerEvidenceAndVoice(SLUG);
+                setData(loadPipData());
                 refreshEvidenceFiles();
                 refreshVoiceNoteCount();
               }}
