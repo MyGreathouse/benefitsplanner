@@ -27,27 +27,44 @@ const STARTING_POINTS = [
 export default function Home() {
   return (
     <>
-      <section className="border-b border-border bg-gradient-to-b from-off-white to-white">
-        <Container className="flex flex-col items-start gap-8 py-20 sm:py-28">
+      <section className="relative overflow-hidden bg-navy-deep">
+        <div
+          className="pointer-events-none absolute inset-0 opacity-40"
+          style={{
+            background:
+              "radial-gradient(60% 50% at 15% 10%, rgba(225,193,109,0.18) 0%, rgba(225,193,109,0) 60%), radial-gradient(50% 60% at 100% 100%, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0) 60%)",
+          }}
+        />
+        <Container className="relative flex flex-col items-start gap-10 py-20 sm:py-28">
           <div className="max-w-2xl">
-            <h1 className="font-display text-4xl font-semibold leading-tight text-navy-deep sm:text-5xl">
-              Know what you may be entitled to. Plan what to do next.
+            <h1 className="font-display text-4xl font-semibold leading-tight text-white sm:text-5xl">
+              Know what you may be entitled to.{" "}
+              <span className="text-gold">Plan what to do next.</span>
             </h1>
-            <p className="mt-6 max-w-xl text-lg leading-relaxed text-slate">
+            <p className="mt-6 max-w-xl text-lg leading-relaxed text-white/75">
               Explore benefits and support, understand the eligibility criteria that may apply to
               your circumstances, prepare applications, organise evidence and keep track of what
               happens next.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
-              <LinkButton href="/tools/benefits-eligibility-checker" size="lg">
+              <LinkButton
+                href="/tools/benefits-eligibility-checker"
+                size="lg"
+                className="!bg-gold !text-navy-deep hover:!bg-white"
+              >
                 Start My Eligibility Check
               </LinkButton>
-              <LinkButton href="/benefits" variant="secondary" size="lg">
+              <LinkButton
+                href="/benefits"
+                variant="secondary"
+                size="lg"
+                className="!border-white/30 !bg-transparent !text-white hover:!border-white"
+              >
                 Explore a Benefit
               </LinkButton>
             </div>
           </div>
-          <Card className="w-full max-w-md">
+          <Card className="w-full max-w-md !bg-white shadow-xl">
             <BenefitSelector />
           </Card>
         </Container>
@@ -60,7 +77,10 @@ export default function Home() {
           </h2>
           <div className="mt-10 grid gap-6 md:grid-cols-3">
             {STARTING_POINTS.map((point) => (
-              <Card key={point.title} className="flex flex-col justify-between">
+              <Card
+                key={point.title}
+                className="flex flex-col justify-between border-t-4 !border-t-gold"
+              >
                 <div>
                   <h3 className="font-display text-lg font-semibold text-navy-deep">{point.title}</h3>
                   <p className="mt-3 text-sm leading-relaxed text-slate">{point.body}</p>
