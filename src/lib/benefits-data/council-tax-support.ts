@@ -31,4 +31,9 @@ export const councilTaxSupport: BenefitInfo = {
   sources: [SOURCES.councilTaxSupport],
   plannerSlug: "council-tax-support",
   plannerLabel: "Council Tax Support Planner",
+  faqs: [
+    { question: "Why can't you tell me exactly what I'll get?", answer: 'Because Council Tax Reduction schemes are set individually by each local council, so the rules, income thresholds and amounts genuinely differ depending on where you live.' },
+    { question: 'Do pensioners get Council Tax Reduction on different rules?', answer: "Often yes — many councils apply separate, usually more generous, rules for people who've reached State Pension age." },
+    { question: 'Can I get Council Tax Reduction and Universal Credit at the same time?', answer: "Yes, they're separate schemes and claiming Universal Credit doesn't rule out Council Tax Reduction — you usually need to apply for it separately through your council." },
+  ],
 };

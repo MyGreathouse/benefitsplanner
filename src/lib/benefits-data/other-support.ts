@@ -29,4 +29,9 @@ export const otherSupport: BenefitInfo = {
     },
   ],
   sources: [SOURCES.benefitsCalculators],
+  faqs: [
+    { question: "How do I find out what's currently available in my area?", answer: "Search your council's website for 'local welfare assistance' or 'household support', since these schemes are set locally and change over time." },
+    { question: 'Is Healthy Start the same in every part of the UK?', answer: "The core scheme is UK-wide, but eligibility and how you apply can vary slightly, so it's worth checking the current guidance." },
+    { question: 'Can I get help with prescription costs?', answer: "The NHS low income scheme can help with prescription and dental costs if you're on a low income, separate from other benefits you might already receive." },
+  ],
 };

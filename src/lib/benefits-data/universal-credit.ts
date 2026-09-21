@@ -51,4 +51,10 @@ export const universalCredit: BenefitInfo = {
   sources: [SOURCES.ucRates2026, SOURCES.ucCapital],
   plannerSlug: "universal-credit",
   plannerLabel: "Universal Credit Planner",
+  faqs: [
+    { question: 'How long does my first Universal Credit payment take?', answer: "Usually about 5 weeks after you apply, covering your first monthly assessment period. If you need money before then, you can ask for an advance, though it's later deducted from your award." },
+    { question: "Can I get Universal Credit if I'm working?", answer: 'Yes — Universal Credit is designed to adjust as your earnings change, tapering down gradually rather than stopping the moment you start work.' },
+    { question: "What happens to my savings if they're between £6,000 and £16,000?", answer: 'Your award is reduced rather than stopped — this is often called the savings taper.' },
+    { question: 'Do I have to pay Universal Credit back?', answer: "No, it's not a loan — but any advance payment you take while waiting for your first payment is deducted from later awards." },
+  ],
 };

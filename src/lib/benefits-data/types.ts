@@ -1,4 +1,5 @@
 import type { Source } from "@/lib/sources";
+import type { FaqItem } from "@/lib/faq/types";
 
 export interface BenefitInfoSection {
   heading: string;
@@ -15,4 +16,5 @@ export interface BenefitInfo {
   sources: Source[];
   plannerSlug?: string; // links to a matching planner, if one exists
   plannerLabel?: string;
+  faqs?: FaqItem[];
 }

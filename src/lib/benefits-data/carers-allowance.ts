@@ -41,4 +41,10 @@ export const carersAllowance: BenefitInfo = {
   sources: [SOURCES.carersAllowance2026],
   plannerSlug: "carers-support",
   plannerLabel: "Carer's Support Planner",
+  faqs: [
+    { question: "Can I get Carer's Allowance if I work part-time?", answer: 'Yes, as long as your net weekly earnings stay under the earnings limit after allowable deductions.' },
+    { question: "Does Carer's Allowance affect the benefits of the person I care for?", answer: "It can — claiming it may reduce certain means-tested benefits they receive, so it's worth checking both sides before claiming." },
+    { question: 'What if I care for more than one person?', answer: "You can only receive one award of Carer's Allowance even if you care for multiple people, but your caring hours for each can still count towards the 35-hour weekly threshold." },
+    { question: "Can I still get Carer's Allowance if I'm not related to the person I care for?", answer: "Yes — there's no requirement to be related to or live with the person you care for." },
+  ],
 };

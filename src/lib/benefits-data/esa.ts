@@ -37,4 +37,9 @@ export const esa: BenefitInfo = {
     },
   ],
   sources: [SOURCES.esa2026],
+  faqs: [
+    { question: "Can I claim New Style ESA if I haven't worked recently?", answer: "You need enough Class 1 or Class 2 National Insurance contributions in relevant recent tax years, so a recent gap in work can affect eligibility even if you've worked for years previously." },
+    { question: 'Can I get ESA and Universal Credit together?', answer: 'Yes, but your ESA is deducted in full from your Universal Credit payment — claiming both can still help protect your National Insurance record.' },
+    { question: "What's the difference between the Work-Related Activity Component and the Support Component?", answer: 'They depend on which group your Work Capability Assessment places you in — the Support Group (higher, Support Component) is for people found unable to do work-related activity at all.' },
+  ],
 };

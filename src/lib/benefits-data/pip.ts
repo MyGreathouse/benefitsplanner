@@ -50,4 +50,10 @@ export const pip: BenefitInfo = {
   sources: [SOURCES.pipRates2026, SOURCES.pipPointsSystem],
   plannerSlug: "pip",
   plannerLabel: "PIP Planner",
+  faqs: [
+    { question: 'Does PIP stop if I go back to work?', answer: "No — PIP isn't affected by whether you work or how much you earn, since it's based on your care and mobility needs, not your income." },
+    { question: 'What if I disagree with my PIP decision?', answer: 'You can usually ask for a Mandatory Reconsideration within one month of the decision, and appeal to an independent tribunal if you still disagree afterwards.' },
+    { question: 'Do I need a diagnosis to claim PIP?', answer: 'PIP is assessed on how your condition affects you day to day, not on having a specific diagnosis — though medical evidence still helps support your claim.' },
+    { question: 'How long does a PIP claim take?', answer: 'It varies, but it typically involves filling in a form, providing evidence, and attending or taking part in an assessment before a decision is made.' },
+  ],
 };

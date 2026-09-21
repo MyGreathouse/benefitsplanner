@@ -5,6 +5,7 @@ import { PageHero } from "@/components/ui/PageHero";
 import { LinkButton } from "@/components/ui/Button";
 import { Disclaimer } from "@/components/ui/Disclaimer";
 import { SourceCard } from "@/components/ui/SourceCard";
+import { FaqSection } from "@/components/ui/FaqSection";
 import { BENEFITS, getBenefitBySlug } from "@/lib/benefits-data";
 
 export function generateStaticParams() {
@@ -80,6 +81,12 @@ export default async function BenefitPage({ params }: { params: Promise<{ slug: 
               </div>
             ))}
           </div>
+
+          {benefit.faqs && benefit.faqs.length > 0 && (
+            <div className="mt-12">
+              <FaqSection items={benefit.faqs} />
+            </div>
+          )}
 
           <div className="mt-12">
             <Disclaimer />

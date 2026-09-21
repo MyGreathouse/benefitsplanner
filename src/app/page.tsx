@@ -2,6 +2,30 @@ import { Container } from "@/components/ui/Container";
 import { LinkButton } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { BenefitSelector } from "@/components/BenefitSelector";
+import { FaqSection } from "@/components/ui/FaqSection";
+
+const HOMEPAGE_FAQS = [
+  {
+    question: "Is BenefitsPlanner part of GOV.UK or DWP?",
+    answer:
+      "No — BenefitsPlanner is an independent planning tool, not affiliated with GOV.UK, DWP, HMRC, any local authority, or the NHS.",
+  },
+  {
+    question: "Does using the Eligibility Checker count as making a claim?",
+    answer:
+      "No — it's a personal indication based on what you tell us, not an official application or entitlement decision. You'd still need to apply through the relevant official channel.",
+  },
+  {
+    question: "Is my information kept private?",
+    answer:
+      "Yes — everything you enter stays on your own device in your browser; nothing is sent to or stored on our servers.",
+  },
+  {
+    question: "Can I use more than one planner at once?",
+    answer:
+      "Yes — your Dashboard brings together progress across all your planners, evidence gathered, and upcoming deadlines in one place.",
+  },
+];
 
 const STARTING_POINTS = [
   {
@@ -91,6 +115,12 @@ export default function Home() {
               </Card>
             ))}
           </div>
+        </Container>
+      </section>
+
+      <section className="border-t border-border bg-white">
+        <Container className="py-16">
+          <FaqSection items={HOMEPAGE_FAQS} />
         </Container>
       </section>
 

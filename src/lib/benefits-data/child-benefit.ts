@@ -34,4 +34,9 @@ export const childBenefit: BenefitInfo = {
     },
   ],
   sources: [SOURCES.childBenefit2026],
+  faqs: [
+    { question: "Should I still claim if I'll have to pay the High Income Child Benefit Charge?", answer: "Many people still do, since claiming protects National Insurance credits that count towards the claimant's State Pension, even if some or all of the payment is later clawed back through tax." },
+    { question: 'Can both parents claim Child Benefit for the same child?', answer: 'No — only one person can claim for a child, even in shared care arrangements, so parents usually need to agree who claims.' },
+    { question: 'What happens when my child turns 16?', answer: 'Child Benefit can continue if they stay in approved full-time education or training, but stops otherwise.' },
+  ],
 };

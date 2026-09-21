@@ -37,4 +37,9 @@ export const pensionCredit: BenefitInfo = {
     },
   ],
   sources: [SOURCES.pensionCredit2026],
+  faqs: [
+    { question: 'I own my home outright — can I still get Pension Credit?', answer: "Yes — owning your home doesn't disqualify you, and your property's value isn't counted as income or savings for Pension Credit." },
+    { question: 'Will claiming Pension Credit affect my State Pension?', answer: 'No, it tops up your income alongside your State Pension rather than replacing or reducing it.' },
+    { question: 'Does Pension Credit help with anything besides weekly income?', answer: 'Yes — an award can also act as a gateway to Council Tax Reduction, a free TV licence for over-75s, and help with NHS costs.' },
+  ],
 };

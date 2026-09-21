@@ -34,4 +34,9 @@ export const attendanceAllowance: BenefitInfo = {
     },
   ],
   sources: [SOURCES.attendanceAllowance2026],
+  faqs: [
+    { question: 'Is Attendance Allowance affected by my savings or income?', answer: "No — it isn't means-tested at all, so your savings, pension, or other income don't affect whether you qualify or how much you get." },
+    { question: 'Can I claim Attendance Allowance and PIP at the same time?', answer: "No — they're for different age groups; once you reach State Pension age you'd generally claim Attendance Allowance rather than starting a new PIP claim." },
+    { question: 'Do I need someone already helping me to qualify?', answer: "No — you can qualify based on needing help or supervision, even if you don't currently have a carer in place." },
+  ],
 };

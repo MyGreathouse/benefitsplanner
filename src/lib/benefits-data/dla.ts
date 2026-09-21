@@ -30,4 +30,9 @@ export const dla: BenefitInfo = {
     },
   ],
   sources: [SOURCES.dla2026],
+  faqs: [
+    { question: 'Can adults still claim DLA?', answer: 'New adult claims are no longer accepted — PIP replaced DLA for working-age adults, though some existing older claimants remain on it.' },
+    { question: 'What happens when my child turns 16?', answer: "They'll usually need to move onto PIP instead, with the transition typically starting around their 16th birthday." },
+    { question: 'Is DLA means-tested?', answer: "No — like PIP and Attendance Allowance, it's based on care and mobility needs, not income or savings." },
+  ],
 };

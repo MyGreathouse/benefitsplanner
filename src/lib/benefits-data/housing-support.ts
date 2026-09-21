@@ -28,4 +28,9 @@ export const housingSupport: BenefitInfo = {
     },
   ],
   sources: [SOURCES.housingSupport],
+  faqs: [
+    { question: 'Do I need to claim Housing Benefit separately from Universal Credit?', answer: "Usually not — most working-age renters get help with rent through Universal Credit's housing element rather than a standalone Housing Benefit claim." },
+    { question: 'What is Local Housing Allowance?', answer: "It's the maximum amount of housing support based on your area and household size — if your rent is higher than this, the difference isn't covered." },
+    { question: "What if I can't cover my rent even with housing support?", answer: 'You can ask your council about a Discretionary Housing Payment, though these are short-term and not guaranteed.' },
+  ],
 };
