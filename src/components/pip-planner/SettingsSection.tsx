@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useId, useRef } from "react";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 
@@ -26,6 +26,7 @@ export function SettingsSection<T>({
   voiceNoteCount: number;
 }) {
   const importInputRef = useRef<HTMLInputElement>(null);
+  const id = useId();
 
   function handleExport() {
     const exportPayload = {
@@ -90,6 +91,7 @@ export function SettingsSection<T>({
             type="file"
             accept="application/json"
             className="hidden"
+            aria-label="Restore from backup file"
             onChange={(e) => handleImportFile(e.target.files)}
           />
         </div>
@@ -102,19 +104,31 @@ export function SettingsSection<T>({
           notification or alarm.
         </p>
         <div className="mt-3 grid gap-3 sm:grid-cols-2">
-          <input
-            type="date"
-            value={reminderDate ?? ""}
-            onChange={(e) => onReminderChange(e.target.value || undefined, reminderNote)}
-            className="focus-ring rounded-lg border border-border bg-white px-3 py-2 text-sm text-navy-deep"
-          />
-          <input
-            type="text"
-            value={reminderNote ?? ""}
-            onChange={(e) => onReminderChange(reminderDate, e.target.value || undefined)}
-            placeholder="e.g. Assessment call at 10am"
-            className="focus-ring rounded-lg border border-border bg-white px-3 py-2 text-sm text-navy-deep sm:col-span-1"
-          />
+          <div>
+            <label htmlFor={`${id}-reminder-date`} className="sr-only">
+              Reminder date
+            </label>
+            <input
+              id={`${id}-reminder-date`}
+              type="date"
+              value={reminderDate ?? ""}
+              onChange={(e) => onReminderChange(e.target.value || undefined, reminderNote)}
+              className="focus-ring w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-navy-deep"
+            />
+          </div>
+          <div>
+            <label htmlFor={`${id}-reminder-note`} className="sr-only">
+              Reminder note
+            </label>
+            <input
+              id={`${id}-reminder-note`}
+              type="text"
+              value={reminderNote ?? ""}
+              onChange={(e) => onReminderChange(reminderDate, e.target.value || undefined)}
+              placeholder="e.g. Assessment call at 10am"
+              className="focus-ring w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-navy-deep sm:col-span-1"
+            />
+          </div>
         </div>
       </div>
 

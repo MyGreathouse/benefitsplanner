@@ -29,6 +29,7 @@ export function QuestionField({
               <button
                 key={opt.value}
                 type="button"
+                aria-pressed={value === opt.value}
                 onClick={() => onChange(question.id, opt.value)}
                 className={`focus-ring rounded-xl border px-4 py-3 text-left text-sm transition-colors ${
                   value === opt.value
@@ -50,6 +51,7 @@ export function QuestionField({
                 <button
                   key={opt.value}
                   type="button"
+                  aria-pressed={selected}
                   onClick={() => {
                     const current = Array.isArray(value) ? [...value] : [];
                     const next = selected ? current.filter((v) => v !== opt.value) : [...current, opt.value];
@@ -77,6 +79,7 @@ export function QuestionField({
               <button
                 key={opt.label}
                 type="button"
+                aria-pressed={value === opt.val}
                 onClick={() => onChange(question.id, opt.val)}
                 className={`focus-ring flex-1 rounded-xl border px-4 py-3 text-sm font-medium transition-colors ${
                   value === opt.val

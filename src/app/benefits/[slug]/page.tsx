@@ -22,6 +22,7 @@ export async function generateMetadata({
   return {
     title: benefit.name,
     description: benefit.standfirst,
+    alternates: { canonical: `/benefits/${benefit.slug}` },
   };
 }
 

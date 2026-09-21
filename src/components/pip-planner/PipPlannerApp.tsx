@@ -141,6 +141,7 @@ export function PipPlannerApp() {
             <button
               key={tab}
               type="button"
+              aria-pressed={activeTab === tab}
               onClick={() => setActiveTab(tab)}
               className={`focus-ring rounded-full px-4 py-2 text-sm font-medium transition-colors ${
                 activeTab === tab ? "bg-navy-deep text-white" : "border border-border bg-white text-navy-deep hover:border-navy-deep"

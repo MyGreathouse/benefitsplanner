@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useId, useState } from "react";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 
@@ -56,6 +56,7 @@ export function RecordListEditor({
 }) {
   const [form, setForm] = useState<RecordValue>(emptyForm(fields));
   const [editingId, setEditingId] = useState<string | null>(null);
+  const idPrefix = useId();
 
   function startEdit(record: StoredRecord) {
     const { id: _id, ...rest } = record;
@@ -94,54 +95,64 @@ export function RecordListEditor({
       {description && <p className="mt-2 text-sm leading-relaxed text-slate">{description}</p>}
 
       <div className="mt-4 space-y-3 rounded-xl border border-border bg-off-white p-4">
-        {fields.map((f) => (
-          <div key={f.key}>
-            <label className="mb-1 block text-xs font-medium text-navy-deep">
-              {f.label}
-              {f.required && <span className="text-error"> *</span>}
-            </label>
-            {f.type === "textarea" ? (
-              <textarea
-                value={form[f.key] ?? ""}
-                onChange={(e) => setForm((prev) => ({ ...prev, [f.key]: e.target.value }))}
-                placeholder={f.placeholder}
-                rows={3}
-                className="focus-ring w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-navy-deep"
-              />
-            ) : f.type === "select" ? (
-              <select
-                value={form[f.key] ?? ""}
-                onChange={(e) => setForm((prev) => ({ ...prev, [f.key]: e.target.value }))}
-                className="focus-ring w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-navy-deep"
-              >
-                <option value="">Select…</option>
-                {f.options?.map((opt) => (
-                  <option key={opt.value} value={opt.value}>
-                    {opt.label}
-                  </option>
-                ))}
-              </select>
-            ) : f.type === "boolean" ? (
-              <label className="flex items-center gap-2 text-sm text-navy-deep">
-                <input
-                  type="checkbox"
-                  checked={form[f.key] === "true"}
-                  onChange={(e) => setForm((prev) => ({ ...prev, [f.key]: e.target.checked ? "true" : "false" }))}
-                  className="h-4 w-4 accent-navy-deep"
+        {fields.map((f) => {
+          const inputId = `${idPrefix}-${f.key}`;
+          return (
+            <div key={f.key}>
+              {f.type !== "boolean" && (
+                <label htmlFor={inputId} className="mb-1 block text-xs font-medium text-navy-deep">
+                  {f.label}
+                  {f.required && <span className="text-error"> *</span>}
+                </label>
+              )}
+              {f.type === "textarea" ? (
+                <textarea
+                  id={inputId}
+                  value={form[f.key] ?? ""}
+                  onChange={(e) => setForm((prev) => ({ ...prev, [f.key]: e.target.value }))}
+                  placeholder={f.placeholder}
+                  rows={3}
+                  className="focus-ring w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-navy-deep"
                 />
-                {f.placeholder ?? "Yes"}
-              </label>
-            ) : (
-              <input
-                type={f.type}
-                value={form[f.key] ?? ""}
-                onChange={(e) => setForm((prev) => ({ ...prev, [f.key]: e.target.value }))}
-                placeholder={f.placeholder}
-                className="focus-ring w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-navy-deep"
-              />
-            )}
-          </div>
-        ))}
+              ) : f.type === "select" ? (
+                <select
+                  id={inputId}
+                  value={form[f.key] ?? ""}
+                  onChange={(e) => setForm((prev) => ({ ...prev, [f.key]: e.target.value }))}
+                  className="focus-ring w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-navy-deep"
+                >
+                  <option value="">Select…</option>
+                  {f.options?.map((opt) => (
+                    <option key={opt.value} value={opt.value}>
+                      {opt.label}
+                    </option>
+                  ))}
+                </select>
+              ) : f.type === "boolean" ? (
+                <label htmlFor={inputId} className="flex items-center gap-2 text-sm text-navy-deep">
+                  <input
+                    id={inputId}
+                    type="checkbox"
+                    checked={form[f.key] === "true"}
+                    onChange={(e) => setForm((prev) => ({ ...prev, [f.key]: e.target.checked ? "true" : "false" }))}
+                    className="h-4 w-4 accent-navy-deep"
+                  />
+                  {f.label}
+                  {f.placeholder ? ` — ${f.placeholder}` : ""}
+                </label>
+              ) : (
+                <input
+                  id={inputId}
+                  type={f.type}
+                  value={form[f.key] ?? ""}
+                  onChange={(e) => setForm((prev) => ({ ...prev, [f.key]: e.target.value }))}
+                  placeholder={f.placeholder}
+                  className="focus-ring w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-navy-deep"
+                />
+              )}
+            </div>
+          );
+        })}
         <div className="flex gap-2 pt-1">
           <Button size="md" onClick={handleSubmit}>
             {editingId ? "Save changes" : "Add"}

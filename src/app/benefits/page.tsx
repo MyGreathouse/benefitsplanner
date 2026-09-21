@@ -6,6 +6,7 @@ import { Card } from "@/components/ui/Card";
 import { BENEFITS } from "@/lib/benefits-data";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/benefits" },
   title: "Benefits directory",
   description: "Explore UK benefits and support, including eligibility criteria, current rates, and planning tools.",
 };

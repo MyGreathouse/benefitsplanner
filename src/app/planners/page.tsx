@@ -6,6 +6,7 @@ import { Card } from "@/components/ui/Card";
 import { PLANNERS } from "@/lib/planner-data";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/planners" },
   title: "Planners",
   description: "Open a planner to prepare an application, organise evidence, and track progress for PIP, Universal Credit, SEND/EHCP, Carer's Support, or Council Tax Support.",
 };

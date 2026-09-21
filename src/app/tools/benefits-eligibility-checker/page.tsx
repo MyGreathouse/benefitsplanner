@@ -4,6 +4,7 @@ import { PageHero } from "@/components/ui/PageHero";
 import { EligibilityChecker } from "@/components/checker/EligibilityChecker";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/tools/benefits-eligibility-checker" },
   title: "Benefits Eligibility Checker",
   description:
     "A guided, step-by-step check of which UK benefits may be worth exploring based on your circumstances.",

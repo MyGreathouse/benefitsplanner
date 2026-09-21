@@ -5,6 +5,7 @@
   --bp-navy-deep: #14213d;
   --bp-navy-dark: #0b1628;
   --bp-gold: #e1c16d;
+  --bp-gold-ink: #7a5f16;
   --bp-white: #ffffff;
   --bp-off-white: #f7f8fa;
   --bp-slate: #536174;
@@ -28,6 +29,7 @@
   --color-navy-deep: var(--bp-navy-deep);
   --color-navy-dark: var(--bp-navy-dark);
   --color-gold: var(--bp-gold);
+  --color-gold-ink: var(--bp-gold-ink);
   --color-off-white: var(--bp-off-white);
   --color-slate: var(--bp-slate);
   --color-slate-light: var(--bp-slate-light);

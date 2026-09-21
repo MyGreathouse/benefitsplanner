@@ -15,7 +15,7 @@ export function Header() {
       <Container className="flex h-16 items-center justify-between">
         <Link href="/" className="focus-ring flex items-center gap-2">
           <span className="font-display text-lg font-semibold text-navy-deep">
-            Benefits<span className="text-gold">Planner</span>
+            Benefits<span className="text-gold-ink">Planner</span>
           </span>
         </Link>
         <nav className="hidden items-center gap-6 md:flex" aria-label="Primary">

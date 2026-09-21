@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useId, useMemo, useState } from "react";
 import { PageHero } from "@/components/ui/PageHero";
 import { Container } from "@/components/ui/Container";
 import { Card } from "@/components/ui/Card";
@@ -32,6 +32,7 @@ export function UcPlannerApp() {
   const [checklistProgress, setChecklistProgress] = useState<PlannerProgress | null>(null);
   const [evidenceFiles, setEvidenceFiles] = useState<EvidenceFileMeta[]>([]);
   const [activeTab, setActiveTab] = useState<Tab>("Overview");
+  const formId = useId();
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect -- intentional post-mount hydration from localStorage/IndexedDB (unavailable during SSR)
@@ -111,6 +112,7 @@ export function UcPlannerApp() {
             <button
               key={tab}
               type="button"
+              aria-pressed={activeTab === tab}
               onClick={() => setActiveTab(tab)}
               className={`focus-ring rounded-full px-4 py-2 text-sm font-medium transition-colors ${
                 activeTab === tab ? "bg-navy-deep text-white" : "border border-border bg-white text-navy-deep hover:border-navy-deep"
@@ -156,8 +158,9 @@ export function UcPlannerApp() {
               <h2 className="border-l-4 border-gold pl-3 font-display text-lg font-semibold text-navy-deep">Household</h2>
               <div className="mt-4 grid gap-4 sm:grid-cols-2">
                 <div>
-                  <label className="mb-1 block text-xs font-medium text-navy-deep">Adults in household</label>
+                  <label htmlFor={`${formId}-adults`} className="mb-1 block text-xs font-medium text-navy-deep">Adults in household</label>
                   <input
+                    id={`${formId}-adults`}
                     type="text"
                     value={data.household.adults ?? ""}
                     onChange={(e) => updateData({ household: { ...data.household, adults: e.target.value } })}
@@ -165,8 +168,9 @@ export function UcPlannerApp() {
                   />
                 </div>
                 <div>
-                  <label className="mb-1 block text-xs font-medium text-navy-deep">Children</label>
+                  <label htmlFor={`${formId}-children`} className="mb-1 block text-xs font-medium text-navy-deep">Children</label>
                   <input
+                    id={`${formId}-children`}
                     type="text"
                     value={data.household.children ?? ""}
                     onChange={(e) => updateData({ household: { ...data.household, children: e.target.value } })}
@@ -174,8 +178,9 @@ export function UcPlannerApp() {
                   />
                 </div>
                 <div>
-                  <label className="mb-1 block text-xs font-medium text-navy-deep">Housing tenure</label>
+                  <label htmlFor={`${formId}-housingTenure`} className="mb-1 block text-xs font-medium text-navy-deep">Housing tenure</label>
                   <input
+                    id={`${formId}-housingTenure`}
                     type="text"
                     value={data.household.housingTenure ?? ""}
                     onChange={(e) => updateData({ household: { ...data.household, housingTenure: e.target.value } })}
@@ -184,8 +189,9 @@ export function UcPlannerApp() {
                   />
                 </div>
                 <div className="sm:col-span-2">
-                  <label className="mb-1 block text-xs font-medium text-navy-deep">Notes</label>
+                  <label htmlFor={`${formId}-notes`} className="mb-1 block text-xs font-medium text-navy-deep">Notes</label>
                   <textarea
+                    id={`${formId}-notes`}
                     value={data.household.notes ?? ""}
                     onChange={(e) => updateData({ household: { ...data.household, notes: e.target.value } })}
                     rows={3}

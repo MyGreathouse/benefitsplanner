@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useId, useMemo, useState } from "react";
 import { PageHero } from "@/components/ui/PageHero";
 import { Container } from "@/components/ui/Container";
 import { Card } from "@/components/ui/Card";
@@ -33,6 +33,7 @@ export function SendPlannerApp() {
   const [checklistProgress, setChecklistProgress] = useState<PlannerProgress | null>(null);
   const [evidenceFiles, setEvidenceFiles] = useState<EvidenceFileMeta[]>([]);
   const [activeTab, setActiveTab] = useState<Tab>("Overview");
+  const formId = useId();
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect -- intentional post-mount hydration from localStorage/IndexedDB (unavailable during SSR)
@@ -112,6 +113,7 @@ export function SendPlannerApp() {
             <button
               key={tab}
               type="button"
+              aria-pressed={activeTab === tab}
               onClick={() => setActiveTab(tab)}
               className={`focus-ring rounded-full px-4 py-2 text-sm font-medium transition-colors ${
                 activeTab === tab ? "bg-navy-deep text-white" : "border border-border bg-white text-navy-deep hover:border-navy-deep"
@@ -157,8 +159,9 @@ export function SendPlannerApp() {
               <h2 className="border-l-4 border-gold pl-3 font-display text-lg font-semibold text-navy-deep">Child profile</h2>
               <div className="mt-4 grid gap-4 sm:grid-cols-2">
                 <div>
-                  <label className="mb-1 block text-xs font-medium text-navy-deep">Child&rsquo;s name</label>
+                  <label htmlFor={`${formId}-childName`} className="mb-1 block text-xs font-medium text-navy-deep">Child&rsquo;s name</label>
                   <input
+                    id={`${formId}-childName`}
                     type="text"
                     value={data.child.childName ?? ""}
                     onChange={(e) => updateData({ child: { ...data.child, childName: e.target.value } })}
@@ -166,8 +169,9 @@ export function SendPlannerApp() {
                   />
                 </div>
                 <div>
-                  <label className="mb-1 block text-xs font-medium text-navy-deep">Date of birth</label>
+                  <label htmlFor={`${formId}-dateOfBirth`} className="mb-1 block text-xs font-medium text-navy-deep">Date of birth</label>
                   <input
+                    id={`${formId}-dateOfBirth`}
                     type="date"
                     value={data.child.dateOfBirth ?? ""}
                     onChange={(e) => updateData({ child: { ...data.child, dateOfBirth: e.target.value } })}
@@ -175,8 +179,9 @@ export function SendPlannerApp() {
                   />
                 </div>
                 <div>
-                  <label className="mb-1 block text-xs font-medium text-navy-deep">School</label>
+                  <label htmlFor={`${formId}-school`} className="mb-1 block text-xs font-medium text-navy-deep">School</label>
                   <input
+                    id={`${formId}-school`}
                     type="text"
                     value={data.child.school ?? ""}
                     onChange={(e) => updateData({ child: { ...data.child, school: e.target.value } })}
@@ -184,8 +189,9 @@ export function SendPlannerApp() {
                   />
                 </div>
                 <div>
-                  <label className="mb-1 block text-xs font-medium text-navy-deep">SENCO name</label>
+                  <label htmlFor={`${formId}-sencoName`} className="mb-1 block text-xs font-medium text-navy-deep">SENCO name</label>
                   <input
+                    id={`${formId}-sencoName`}
                     type="text"
                     value={data.child.sencoName ?? ""}
                     onChange={(e) => updateData({ child: { ...data.child, sencoName: e.target.value } })}

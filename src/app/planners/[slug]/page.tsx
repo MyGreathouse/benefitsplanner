@@ -20,7 +20,7 @@ export async function generateMetadata({
   const { slug } = await params;
   const planner = getPlannerBySlug(slug);
   if (!planner) return {};
-  return { title: planner.title, description: planner.standfirst };
+  return { title: planner.title, description: planner.standfirst, alternates: { canonical: `/planners/${planner.slug}` } };
 }
 
 export default async function PlannerPage({ params }: { params: Promise<{ slug: string }> }) {

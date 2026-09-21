@@ -1,5 +1,6 @@
 "use client";
 
+import { useId } from "react";
 import { Card } from "@/components/ui/Card";
 import type { PromptNote } from "@/lib/pip-evidence/types";
 
@@ -16,6 +17,8 @@ export function PromptNotesEditor({
   notes: PromptNote[];
   onChange: (notes: PromptNote[]) => void;
 }) {
+  const idPrefix = useId();
+
   function getText(promptId: string): string {
     return notes.find((n) => n.promptId === promptId)?.text ?? "";
   }
@@ -37,8 +40,9 @@ export function PromptNotesEditor({
       <div className="mt-4 space-y-4">
         {prompts.map((p) => (
           <div key={p.id}>
-            <label className="mb-1 block text-sm font-medium text-navy-deep">{p.prompt}</label>
+            <label htmlFor={`${idPrefix}-${p.id}`} className="mb-1 block text-sm font-medium text-navy-deep">{p.prompt}</label>
             <textarea
+              id={`${idPrefix}-${p.id}`}
               value={getText(p.id)}
               onChange={(e) => setText(p.id, e.target.value)}
               rows={3}

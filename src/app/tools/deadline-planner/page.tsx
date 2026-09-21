@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { DeadlinePlannerApp } from "@/components/deadline-planner/DeadlinePlannerApp";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/tools/deadline-planner" },
   title: "Deadline & Review Planner",
   description: "Track every important date across your benefits — applications, assessments, decisions, Mandatory Reconsideration and appeal deadlines — in one place.",
 };
