@@ -56,4 +56,6 @@ export const pip: BenefitInfo = {
     { question: 'Do I need a diagnosis to claim PIP?', answer: 'PIP is assessed on how your condition affects you day to day, not on having a specific diagnosis — though medical evidence still helps support your claim.' },
     { question: 'How long does a PIP claim take?', answer: 'It varies, but it typically involves filling in a form, providing evidence, and attending or taking part in an assessment before a decision is made.' },
   ],
+  seoTitle: 'PIP Eligibility Checker & Calculator UK | Benefits Planner',
+  seoDescription: 'Check whether PIP may be worth exploring and understand PIP eligibility, daily living, mobility, evidence and the next steps for making a claim.',
 };

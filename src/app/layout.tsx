@@ -20,11 +20,11 @@ const fraunces = Fraunces({
 export const metadata: Metadata = {
   metadataBase: new URL("https://benefitsplanner.co.uk"),
   title: {
-    default: "BenefitsPlanner — Know what you may be entitled to",
+    default: "Benefits Planner UK | Benefits Calculator & Eligibility Checker",
     template: "%s | BenefitsPlanner",
   },
   description:
-    "Explore UK benefits and support, check what may apply to your circumstances, prepare applications, organise evidence, and keep track of what happens next.",
+    "Check what UK benefits you may be entitled to with our free benefits calculator and eligibility checker. Explore PIP, Universal Credit, Carer's Allowance and more.",
   alternates: { canonical: "/" },
   openGraph: {
     title: "BenefitsPlanner",
@@ -55,6 +55,17 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
               url: "https://benefitsplanner.co.uk",
               description:
                 "An independent UK benefits-planning platform helping people explore what support may apply to their circumstances, prepare applications, organise evidence, and track next steps.",
+            }),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              name: "BenefitsPlanner",
+              url: "https://benefitsplanner.co.uk",
             }),
           }}
         />

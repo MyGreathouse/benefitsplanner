@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { PageHero } from "@/components/ui/PageHero";
 import { EligibilityChecker } from "@/components/checker/EligibilityChecker";
@@ -25,9 +26,24 @@ const CHECKER_FAQS = [
 
 export const metadata: Metadata = {
   alternates: { canonical: "/tools/benefits-eligibility-checker" },
-  title: "Benefits Eligibility Checker",
+  title: "Benefits Eligibility Checker UK | What Benefits Can I Claim?",
   description:
-    "A guided, step-by-step check of which UK benefits may be worth exploring based on your circumstances.",
+    "Use our free UK benefits eligibility checker to explore benefits you may be entitled to, including Universal Credit, PIP, Carer's Allowance and more.",
+  openGraph: {
+    title: "Benefits Eligibility Checker UK | What Benefits Can I Claim?",
+    description:
+      "Use our free UK benefits eligibility checker to explore benefits you may be entitled to, including Universal Credit, PIP, Carer's Allowance and more.",
+    url: "https://benefitsplanner.co.uk/tools/benefits-eligibility-checker",
+    siteName: "BenefitsPlanner",
+    locale: "en_GB",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Benefits Eligibility Checker UK | What Benefits Can I Claim?",
+    description:
+      "Use our free UK benefits eligibility checker to explore benefits you may be entitled to, including Universal Credit, PIP, Carer's Allowance and more.",
+  },
 };
 
 export default function EligibilityCheckerPage() {
@@ -35,8 +51,8 @@ export default function EligibilityCheckerPage() {
     <div>
       <PageHero
         eyebrow="Tool"
-        title="Benefits Eligibility Checker"
-        standfirst="Answer a few questions about your circumstances. We'll show you which pathways may be worth exploring — this isn't an official decision, and your answers stay on this device."
+        title="What Benefits Could You Be Entitled To?"
+        standfirst="Answer a few questions about your circumstances to identify benefits and support that may be worth exploring. This checker provides an indication only — it is not an official benefits decision or guarantee of entitlement, and your answers stay on this device."
       />
       <Container className="py-12">
         <div className="mx-auto max-w-2xl">
@@ -44,6 +60,25 @@ export default function EligibilityCheckerPage() {
         </div>
         <div className="mx-auto mt-16 max-w-2xl">
           <FaqSection items={CHECKER_FAQS} />
+        </div>
+        <div className="mx-auto mt-16 max-w-2xl">
+          <h2 className="border-l-4 border-gold pl-3 font-display text-lg font-semibold text-navy-deep">
+            Or explore a specific benefit
+          </h2>
+          <div className="mt-4 flex flex-wrap gap-3">
+            <Link href="/benefits/pip" className="focus-ring rounded-full border border-border bg-white px-4 py-2 text-sm font-medium text-navy-deep hover:border-navy-deep">
+              PIP
+            </Link>
+            <Link href="/benefits/universal-credit" className="focus-ring rounded-full border border-border bg-white px-4 py-2 text-sm font-medium text-navy-deep hover:border-navy-deep">
+              Universal Credit
+            </Link>
+            <Link href="/benefits/carers-allowance" className="focus-ring rounded-full border border-border bg-white px-4 py-2 text-sm font-medium text-navy-deep hover:border-navy-deep">
+              Carer&rsquo;s Allowance
+            </Link>
+            <Link href="/benefits" className="focus-ring rounded-full border border-border bg-white px-4 py-2 text-sm font-medium text-navy-deep hover:border-navy-deep">
+              View all benefits
+            </Link>
+          </div>
         </div>
       </Container>
     </div>

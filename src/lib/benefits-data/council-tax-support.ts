@@ -36,4 +36,6 @@ export const councilTaxSupport: BenefitInfo = {
     { question: 'Do pensioners get Council Tax Reduction on different rules?', answer: "Often yes — many councils apply separate, usually more generous, rules for people who've reached State Pension age." },
     { question: 'Can I get Council Tax Reduction and Universal Credit at the same time?', answer: "Yes, they're separate schemes and claiming Universal Credit doesn't rule out Council Tax Reduction — you usually need to apply for it separately through your council." },
   ],
+  seoTitle: 'Council Tax Reduction Calculator & Checker UK | Benefits Planner',
+  seoDescription: 'Check whether you may qualify for Council Tax Reduction and understand how income, savings, household circumstances and your local council can affect support.',
 };

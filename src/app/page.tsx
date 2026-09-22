@@ -1,10 +1,17 @@
+import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { LinkButton } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { BenefitSelector } from "@/components/BenefitSelector";
 import { FaqSection } from "@/components/ui/FaqSection";
+import { BENEFITS } from "@/lib/benefits-data";
 
 const HOMEPAGE_FAQS = [
+  {
+    question: "What benefits can I claim in the UK?",
+    answer:
+      "It depends entirely on your circumstances — income, savings, health, housing, and who you care for all play a part. Our Benefits Eligibility Checker asks a few guided questions and shows you which pathways may be worth exploring.",
+  },
   {
     question: "Is BenefitsPlanner part of GOV.UK or DWP?",
     answer:
@@ -31,7 +38,7 @@ const STARTING_POINTS = [
   {
     title: "I don't know what I may be entitled to",
     body: "Start the Benefits Eligibility Checker. A few guided questions will show you which pathways may be worth exploring.",
-    cta: "Check My Eligibility",
+    cta: "Check My Benefits",
     href: "/tools/benefits-eligibility-checker",
   },
   {
@@ -42,7 +49,7 @@ const STARTING_POINTS = [
   },
   {
     title: "I already have a claim or decision",
-    body: "Open your dashboard to see planner progress, evidence gathered, and upcoming deadlines across everything at a glance.",
+    body: "Open your dashboard to see planner progress, evidence gathered, and upcoming deadlines across everything at a glance — or go straight to your Deadline & Review Planner or Challenge Planner.",
     cta: "Open My Dashboard",
     href: "/dashboard",
   },
@@ -61,14 +68,17 @@ export default function Home() {
         />
         <Container className="relative flex flex-col items-start gap-10 py-20 sm:py-28">
           <div className="max-w-2xl">
-            <h1 className="font-display text-4xl font-semibold leading-tight text-white sm:text-5xl">
-              Know what you may be entitled to.{" "}
-              <span className="text-gold">Plan what to do next.</span>
+            <p className="text-sm font-semibold uppercase tracking-widest text-gold">
+              Know what you may be entitled to. Plan what to do next.
+            </p>
+            <h1 className="mt-3 font-display text-4xl font-semibold leading-tight text-white sm:text-5xl">
+              Find Out What Benefits You Could Be Entitled To
             </h1>
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-white/75">
-              Explore benefits and support, understand the eligibility criteria that may apply to
-              your circumstances, prepare applications, organise evidence and keep track of what
-              happens next.
+              Benefits Planner helps you explore UK benefits, check potential eligibility and plan
+              your next steps — all in one place. Use our free benefits calculator and eligibility
+              checker to see what may be worth exploring, then prepare applications, organise
+              evidence and keep track of what happens next.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
               <LinkButton
@@ -114,6 +124,38 @@ export default function Home() {
                 </LinkButton>
               </Card>
             ))}
+          </div>
+        </Container>
+      </section>
+
+      <section className="border-t border-border bg-off-white">
+        <Container className="py-16">
+          <h2 className="font-display text-xl font-semibold text-navy-deep">Explore by benefit</h2>
+          <div className="mt-6 flex flex-wrap gap-3">
+            {BENEFITS.map((b) => (
+              <Link
+                key={b.slug}
+                href={`/benefits/${b.slug}`}
+                className="focus-ring rounded-full border border-border bg-white px-4 py-2 text-sm font-medium text-navy-deep hover:border-navy-deep"
+              >
+                {b.name}
+              </Link>
+            ))}
+          </div>
+          <h2 className="mt-10 font-display text-xl font-semibold text-navy-deep">Planning tools</h2>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <Link href="/planners" className="focus-ring rounded-full border border-border bg-white px-4 py-2 text-sm font-medium text-navy-deep hover:border-navy-deep">
+              All Planners
+            </Link>
+            <Link href="/tools/deadline-planner" className="focus-ring rounded-full border border-border bg-white px-4 py-2 text-sm font-medium text-navy-deep hover:border-navy-deep">
+              Deadline &amp; Review Planner
+            </Link>
+            <Link href="/planners/challenge" className="focus-ring rounded-full border border-border bg-white px-4 py-2 text-sm font-medium text-navy-deep hover:border-navy-deep">
+              Challenge Planner
+            </Link>
+            <Link href="/dashboard" className="focus-ring rounded-full border border-border bg-white px-4 py-2 text-sm font-medium text-navy-deep hover:border-navy-deep">
+              My Benefits Dashboard
+            </Link>
           </div>
         </Container>
       </section>

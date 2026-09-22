@@ -47,4 +47,6 @@ export const carersAllowance: BenefitInfo = {
     { question: 'What if I care for more than one person?', answer: "You can only receive one award of Carer's Allowance even if you care for multiple people, but your caring hours for each can still count towards the 35-hour weekly threshold." },
     { question: "Can I still get Carer's Allowance if I'm not related to the person I care for?", answer: "Yes — there's no requirement to be related to or live with the person you care for." },
   ],
+  seoTitle: "Carer's Allowance Eligibility Checker UK | Benefits Planner",
+  seoDescription: "Explore Carer's Allowance eligibility, caring hours, earnings and related support with our UK benefits checker and planning tools.",
 };

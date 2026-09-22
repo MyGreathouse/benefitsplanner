@@ -17,4 +17,7 @@ export interface BenefitInfo {
   plannerSlug?: string; // links to a matching planner, if one exists
   plannerLabel?: string;
   faqs?: FaqItem[];
+  /** Overrides the default "<name> | BenefitsPlanner" title when a specific search-intent title is worth targeting. */
+  seoTitle?: string;
+  seoDescription?: string;
 }

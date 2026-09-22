@@ -57,4 +57,6 @@ export const universalCredit: BenefitInfo = {
     { question: "What happens to my savings if they're between £6,000 and £16,000?", answer: 'Your award is reduced rather than stopped — this is often called the savings taper.' },
     { question: 'Do I have to pay Universal Credit back?', answer: "No, it's not a loan — but any advance payment you take while waiting for your first payment is deducted from later awards." },
   ],
+  seoTitle: 'Universal Credit Calculator & Eligibility Checker UK',
+  seoDescription: 'Explore Universal Credit eligibility, payments, income, savings, housing costs and other factors with our UK Universal Credit planner and checker.',
 };
